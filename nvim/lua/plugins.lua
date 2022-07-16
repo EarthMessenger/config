@@ -1,49 +1,39 @@
-packer = require('packer')
-
-packer.init({
-    git = {
-        default_url_format = "https://ghproxy.com/https://github.com/%s"
-    }
-})
-
-return packer.startup(function()
-    use 'wbthomason/packer.nvim'
-    
-    -- one dark theme
-    use 'navarasu/onedark.nvim'
-
-    -- wakatime
-    use 'wakatime/vim-wakatime'
+return require("packer").startup(function()
+    -- gruvbox theme
+    use "ellisonleao/gruvbox.nvim"
 
     -- nvim tree
+    -- A file explorer tree for neovim written in lua
     use {
-        'kyazdani42/nvim-tree.lua',
-        requires = {
-            'kyazdani42/nvim-web-devicons', -- optional, for file icon
-        },
-        config = function() require'nvim-tree'.setup {} end
+        "kyazdani42/nvim-tree.lua",
+        requires = "kyazdani42/nvim-web-devicons"
     }
 
-    -- snippets
-    use 'SirVer/ultisnips'
+    -- nvim-lspconfig
+    use "neovim/nvim-lspconfig"
 
-    -- auto compelete
-    use {
-        'neoclide/coc.nvim',
-        branch = 'release'
-    }
+    -- nvim-cmp
+    -- A completion plugin for neovim coded in Lua. 
+    use "hrsh7th/cmp-nvim-lsp"
+    use "hrsh7th/cmp-buffer"
+    use "hrsh7th/cmp-path"
+    use "hrsh7th/cmp-cmdline"
+    use "hrsh7th/nvim-cmp"
+    use "saadparwaiz1/cmp_luasnip"
 
-    -- highlight
+    -- luasnip
+    -- Snippet Engine for Neovim written in Lua. 
+    use "L3MON4D3/LuaSnip"
+    
+    -- lualine
     use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate'
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
+    
+    -- bufferline
+    use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
 
-    use {
-        'nvim-telescope/telescope.nvim',
-        requires = {
-            'nvim-lua/plenary.nvim',
-            'kyazdani42/nvim-web-devicons'
-        }
-    }
+    -- dashboard
+    use { 'glepnir/dashboard-nvim' }
 end)
